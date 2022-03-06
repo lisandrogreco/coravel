@@ -68,7 +68,7 @@ namespace Coravel.Events
                             // above doesn't work (even though the type really does implement the interface).
                             // Not sure why this happens. Might be a side effect of running inside a unit test proj. Dunno.
                             // This condition will catch those cases and default to reflection.                        
-                            var result = listenerType.GetMethod("HandleAsync").Invoke(obj, new object[] { toBroadcast });
+                            var result = listenerType.GetMethod("HandleAsync", new Type[] {toBroadcast.GetType()}).Invoke(obj, new object[] { toBroadcast });
                             await (result as Task);
                         }
                     }
